@@ -71,7 +71,7 @@ class App extends React.Component {
       })
     }
     this.setState({ name: '', email: '', body: '', nameErr: false, emailErr: false, bodyErr: false })
-    const response = await fetch('http://localhost:4000/email', request)
+    const response = await fetch('http://localhost:8080/email', request)
     if (response.status === 200) {
       alert('Successfully sent email!')
     } else {

@@ -1,0 +1,22 @@
+# base image
+FROM node:latest AS build
+
+# set working directory
+WORKDIR /client
+
+# Install app dependencies
+COPY package*.json /client/
+
+RUN npm install
+COPY ./ /client/
+RUN npm run build
+
+# Development
+# EXPOSE 3000
+# CMD ["npm", "start"]
+
+# Production
+FROM nginx:1.16.0-alpine
+COPY --from=build /client/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

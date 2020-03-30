@@ -1,0 +1,15 @@
+# base image
+FROM node:latest AS build
+
+# set working directory
+WORKDIR /backend
+
+# Install app dependencies
+COPY package*.json /backend/
+
+RUN npm install
+COPY ./ /backend/
+# RUN npm run build
+
+EXPOSE 8080
+CMD ["node", "server.js"]
