@@ -24,3 +24,6 @@ yarn-error.log*
 
 #me
 options.json
+letsencrypt
+lib
+ssl.sh

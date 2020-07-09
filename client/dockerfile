@@ -2,13 +2,13 @@
 FROM node:latest AS build
 
 # set working directory
-WORKDIR /client
+WORKDIR /app
 
 # Install app dependencies
-COPY package*.json /client/
+COPY package*.json /app
 
 RUN npm install
-COPY ./ /client/
+COPY ./ /app
 RUN npm run build
 
 # Development
@@ -17,6 +17,12 @@ RUN npm run build
 
 # Production
 FROM nginx:1.16.0-alpine
-COPY --from=build /client/build /usr/share/nginx/html
+COPY --from=build /app/build /usr/share/nginx/html
+# RUN mkdir /etc/letsencrypt
+# COPY letsencrypt/live/timjose.com/fullchain.pem /etc/letsencrypt
+# COPY letsencrypt/live/timjose.com/privkey.pem /etc/letsencrypt
+# RUN rm /etc/nginx/conf.d/default.conf
+# COPY nginx.config /etc/nginx/conf.d/default.conf
 EXPOSE 80
+# EXPOSE 443
 CMD ["nginx", "-g", "daemon off;"]

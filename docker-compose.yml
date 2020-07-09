@@ -1,12 +1,12 @@
 version: '2'
 services:
   client:
-    build: ./client
+    image: timsilog/personalwebsite_client:sitefront
     ports:
-      - '80:80'
+      - '1337:80'
     depends_on:
       - backend
   backend:
-    build: ./backend
+    image: timsilog/personalwebsite_backend:siteback
     ports:
       - '8080:8080'
